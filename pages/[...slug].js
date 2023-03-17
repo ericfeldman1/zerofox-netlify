@@ -12,7 +12,7 @@ export default function Page(props) {
 
     export const getStaticProps = async (context) => {
         console.log("CONTEXT:", context);
-        const uri = `${context.params.slug.join("/")}`;
+        const uri = `/${context.params.slug.join("/")}/`;
         console.log("URI: ", uri)
         const {data} = await client.query({
             query: gql`
@@ -22,6 +22,28 @@ export default function Page(props) {
                   id
                   title
                   blocksJSON
+                }
+              }
+              acfOptionsMenu {
+                Menu {
+                  menuItems {
+                    menuItem {
+                      destination {
+                        ... on Page {
+                          uri
+                        }
+                      }
+                      label
+                    }
+                    items {
+                      destination {
+                        ... on Page {
+                          uri
+                        }
+                      }
+                      label
+                    }
+                  }
                 }
               }
             }
@@ -35,6 +57,7 @@ export default function Page(props) {
         
           return {
             props: { 
+              menuItems: data.acfOptionsMenu.Menu.menuItems,
                 title: data.nodeByUri.title,
                 blocks, 
             }
@@ -54,12 +77,13 @@ export default function Page(props) {
         });
 
         return {
-            // paths: data.pages.nodes.map(page => ({
-              paths: [data.pages.nodes, ...data.properties.nodes]
-                .filter(page => page.uri !== "/" )
-                .map((page) => ({
+            paths: data.pages.nodes.map(page => ({
+              // paths: [...data.pages.nodes, ...data.properties.nodes]
+              //   .filter(page => page.uri !== "/" )
+              //   .map((page) => ({
                 params: {
-                    slug: page.uri.substring(1, page.uri.length-1).split("/"),
+                  slug: page.uri.substring(1, page.uri.length-1).split("/"),
+                    // slug: page.uri.substring(1, page.uri.length-1).split("/"),
                 }
             })),
             fallback: false,

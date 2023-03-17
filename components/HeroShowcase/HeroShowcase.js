@@ -1,5 +1,11 @@
 import Image from "next/image"
 
+// const hoverStyles = {
+// 	'clip-path': 'polygon(-1% -1%, 100% -1%, 70% 101%, -1% 101%)',
+// 	 'background-position-x': '25%',
+// 	//  'background-image': `url(${defaultImage})`
+// }
+
 export const HeroShowcase = ({ buttonLabel, defaultImage, eyebrow, header, hoverImage, link, overlapHero }) => {
 
     return <section>
@@ -12,16 +18,15 @@ export const HeroShowcase = ({ buttonLabel, defaultImage, eyebrow, header, hover
 								<div className="grid grid-cols-4 gap-2.5 md:grid-cols-8 md:gap-4 xl:grid-cols-12 2xl:grid-cols-10">
 
 									<div className="relative xl:col-start-1 xl:col-span-3 2xl:col-span-3 hidden xl:block">									
-										<div className="h-full w-full bg-center bg-no-repeat bg-cover [background-position-x:25%] group-hover:opacity-0 transition-opacity duration-300 ease-in-out" 
+										<div className={`h-full w-full bg-center bg-no-repeat bg-cover [background-position-x:25%] group-hover:opacity-0 transition-opacity duration-300 ease-in-out 
+										`} 
                                         
-                                        style={{ ["background-image"]: "url('http://hot-dang-homes-course.local/wp-content/uploads/2023/03/ZFFS_Hover.png')",
-                                        ["clip-path"]: "polygon(-1% -1%, 100% -1%, 70% 101%, -1% 101%); background-position-x: 25%" }}
-                                        
-                                        ></div>
+                                        style={{["background-image"]: `url(${hoverImage})`,
+                                        ["clip-path"]: "polygon(-1% -1%, 100% -1%, 70% 101%, -1% 101%); background-position-x: 25%" }}></div>
 										
 										<div className="h-full w-full opacity-0 group-hover:opacity-100 bg-center bg-no-repeat bg-cover [background-position-x:25%] absolute top-0 left-0 transition-opacity duration-300 ease-in-out" 
                                         
-                                        style={{ ["background-image"]: "url('http://hot-dang-homes-course.local/wp-content/uploads/2023/03/ZFFS_Inactive.png')",
+                                        style={{ ["background-image"]: `url(${defaultImage})`,
                                         ["clip-path"]: "polygon(-1% -1%, 100% -1%, 70% 101%, -1% 101%); background-position-x: 25%" }}
                                         
                                         ></div>
